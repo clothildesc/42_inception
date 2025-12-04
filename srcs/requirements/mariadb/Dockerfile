@@ -5,7 +5,14 @@ RUN apt update && apt install -y mariadb-server
 COPY conf/50-server.cnf /etc/mysql/mariadb.conf.d/50-server.cnf
 COPY conf/init.sql /docker-entrypoint-initdb.d/
 
-EXPOSE 3306
+RUN mkdir -p /var/run/mysqld \
+    && chown -R mysql:mysql /var/run/mysqld \
+    && chown -R mysql:mysql /var/lib/mysql
 
-CMD ["mysqld"]
+USER mysql
+
+COPY tools/entrypoint.sh /usr/local/bin/
+ENTRYPOINT ["entrypoint.sh"]
+
+EXPOSE 3306
 
