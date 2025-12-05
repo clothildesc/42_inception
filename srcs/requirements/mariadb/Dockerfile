@@ -1,6 +1,6 @@
 FROM debian:bookworm
 
-RUN apt update && apt install -y mariadb-server
+RUN apt update && apt install -y mariadb-server gettext-base
 
 COPY conf/50-server.cnf /etc/mysql/mariadb.conf.d/50-server.cnf
 COPY conf/init.sql /docker-entrypoint-initdb.d/

@@ -1,18 +1,18 @@
 #!/bin/bash
 set -e
 
+# Substitue les variables dans init.sql
+envsubst < /docker-entrypoint-initdb.d/init.sql > /tmp/init.sql
+
 # Démarre MariaDB en arrière-plan
 mysqld --bind-address=0.0.0.0 &
-
-# Attends que MariaDB démarre
 sleep 5
 
-# Exécute l'init SQL uniquement au premier lancement
-if [ ! -d "/var/lib/mysql/inception_db" ]; then
+# Exécute l'init seulement au premier démarrage
+if [ ! -d "/var/lib/mysql/${MYSQL_DATABASE}" ]; then
     echo "Initializing database..."
-    mariadb < /docker-entrypoint-initdb.d/init.sql
+    mariadb < /tmp/init.sql
 fi
 
-# Garde MariaDB au premier plan
 wait
 

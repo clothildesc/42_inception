@@ -27,6 +27,7 @@ chmod +x /usr/local/bin/wp
 # 4. Installation WordPress
 
 wp core install \
+    --allow-root \
     --path=$WP_PATH \
     --url="https://${DOMAIN_NAME}" \
     --title="${WP_TITLE}" \
@@ -37,6 +38,7 @@ wp core install \
 
 # 5. Créer un utilisateur supplémentaire
 wp user create "${WP_USER}" "${WP_USER_EMAIL}" \
+    --allow-root \
     --role=author \
     --user_pass="${WP_USER_PASSWORD}" \
     --path=$WP_PATH
