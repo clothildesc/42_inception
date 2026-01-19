@@ -1,24 +1,24 @@
 #!/bin/bash
 set -e
 
-# Vérifier que les variables sont définies
-: "${MYSQL_DATABASE:?Variable non définie}"
-: "${MYSQL_USER:?Variable non définie}"
-: "${MYSQL_PASSWORD:?Variable non définie}"
-: "${MYSQL_ROOT_PASSWORD:?Variable non définie}"
+# Préparer le socket
+mkdir -p /var/run/mysqld
+chown -R mysql:mysql /var/run/mysqld
 
 # Substituer les variables dans init.sql
 envsubst < /docker-entrypoint-initdb.d/init.sql > /tmp/init.sql
 
 # Initialiser la base si elle n'existe pas
 if [ ! -d "/var/lib/mysql/${MYSQL_DATABASE}" ]; then
-		echo "Initializing database..."
-		mysqld --skip-networking --socket=/var/run/mysqld/mysqld.sock &
-		pid="$!"
-		sleep 5
-		mariadb < /tmp/init.sql
-		kill "$pid"
-		wait "$pid"
+    echo "Initializing database..."
+    mysqld --skip-networking --socket=/var/run/mysqld/mysqld.sock &
+    pid="$!"
+    until mysqladmin ping --socket=/var/run/mysqld/mysqld.sock --silent; do
+        sleep 1
+    done
+    mariadb --socket=/var/run/mysqld/mysqld.sock < /tmp/init.sql
+    kill "$pid"
+    wait "$pid"
 fi
 
 # Lancer MariaDB en foreground
