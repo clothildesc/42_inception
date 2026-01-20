@@ -1,4 +1,4 @@
-FROM debian:bookworm
+FROM debian:trixie
 
 RUN apt-get update && apt-get install -y \
     php-fpm \
@@ -24,7 +24,7 @@ RUN mkdir -p /var/www/html && \
     chown -R www-data:www-data /var/www/html && \
     rm /tmp/wordpress.tar.gz
 
-COPY conf/www.conf /etc/php/8.2/fpm/pool.d/www.conf
+COPY conf/www.conf /etc/php/8.4/fpm/pool.d/www.conf
 COPY tools/wp-setup.sh /usr/local/bin/wp-setup.sh
 RUN chmod +x /usr/local/bin/wp-setup.sh
 

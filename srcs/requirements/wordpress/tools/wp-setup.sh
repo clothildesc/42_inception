@@ -3,15 +3,20 @@ set -e
 
 WP_PATH="/var/www/html"
 
-# Attendre que MariaDB soit prêt
+# Lire les mots de passe depuis secrets
+export MYSQL_PASSWORD=$(cat /run/secrets/db_password)
+export WP_ADMIN_PASSWORD=$(cat /run/secrets/wp_admin_password)
+export WP_USER_PASSWORD=$(cat /run/secrets/wp_user_password)
+
+# Attendre que MariaDB soit pret
 until mariadb -h"$WP_DB_HOST" -u"$MYSQL_USER" -p"$MYSQL_PASSWORD" -e "SELECT 1;" "$MYSQL_DATABASE" >/dev/null 2>&1; do
     echo "Waiting for MariaDB..."
     sleep 1
 done
 
-# Vérifie si WordPress est déjà installé
+# Verifie si WordPress est deja installe
 if [ -f "$WP_PATH/wp-config.php" ]; then
-    exec php-fpm8.2 -F
+    exec php-fpm8.4 -F
 fi
 
 # Copie du fichier exemple
@@ -34,7 +39,7 @@ wp core install \
     --admin_email="${WP_ADMIN_EMAIL}" \
     --skip-email
 
-# Création d'un autre utilisateur
+# Creation d'un autre utilisateur
 wp user create "${WP_USER}" "${WP_USER_EMAIL}" \
     --allow-root \
     --role=author \
@@ -42,4 +47,4 @@ wp user create "${WP_USER}" "${WP_USER_EMAIL}" \
     --path=$WP_PATH
 
 # Lancement PHP-FPM en foreground (Docker requirement)
-exec php-fpm8.2 -F
+exec php-fpm8.4 -F

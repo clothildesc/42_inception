@@ -1,7 +1,11 @@
 #!/bin/bash
 set -e
 
-# Préparer le socket
+# Lire les secrets depuis les fichiers
+export MYSQL_ROOT_PASSWORD=$(cat /run/secrets/db_root_password)
+export MYSQL_PASSWORD=$(cat /run/secrets/db_password)
+
+# Preparer le socket
 mkdir -p /var/run/mysqld
 chown -R mysql:mysql /var/run/mysqld
 
