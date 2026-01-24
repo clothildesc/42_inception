@@ -19,9 +19,8 @@ This document explains how to use, access, and verify the Inception Docker stack
 - Stores WordPress data (users, posts, settings).
 - Uses a persistent Docker volume to keep data.
 
----
 
-## 2. Launch the project
+## 2. Run the project
 
 ### **Start and stop the project**
 
@@ -61,36 +60,42 @@ The admin panel is available at:
 
 ## 3. Credentials
 
-All credentials are stored in:
+Sensitive credentials (passwords) are stored securely in the following files: `srcs/secrets/`
+- db_password.txt
+- db_root_password.txt
+- wp_admin_password.txt
+- wp_user_password.txt
 
-```bash
-srcs/.env
-```
+The `srcs/.env` file only contains non-sensitive configuration values:
 
-This file contains:
+##### Domain
+- DOMAIN_NAME
 
 ##### MariaDB
 - MYSQL_DATABASE
 - MYSQL_USER
-- MYSQL_PASSWORD
-- MYSQL_ROOT_PASSWORD
 
 ##### WordPress
+- WP_DB_NAME
+- WP_DB_USER
+- WP_DB_HOST
+- WP_TITLE
 - WP_ADMIN_USER
-- WP_ADMIN_PASSWORD
 - WP_ADMIN_EMAIL
 - WP_USER
-- WP_USER_PASSWORD
+- WP_USER_EMAIL
 
-⚠️ If you change .env, you must run: `make re`
+Passwords are injected into containers using Docker secrets.
+
+⚠️ If you modify .env or any secret file, you must run: `make re`
 So the new credentials apply.
 
-## 4. Checking that everything works
+## 4. Checking Service Status
 
 ### Check running containers
 
 ```bash
-docker ps
+make ps
 ```
 You should see:
 - srcs-nginx
@@ -100,21 +105,7 @@ You should see:
 ### Check logs
 
 ```bash
-docker logs srcs-nginx-1
-docker logs srcs-wordpress-1
-docker logs srcs-mariadb-1
+make logs-wordpress
+make logs-mariadb
+make logs-nginx
 ```
-
-### Test DB connection
-
-```bash
-docker exec -it srcs-wordpress-1 mariadb -h mariadb -u $MYSQL_USER -p
-```
-
-### Check WordPress installation
-
-```bash
-docker exec -it srcs-wordpress-1 wp core is-installed --allow-root
-```
-
-If it prints Success, WordPress is ready.

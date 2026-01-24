@@ -4,20 +4,12 @@
 
 ## Description
 
-Inception is a project from the 42 curriculum aimed at introducing students to **modern container-based infrastructure using Docker**.  
-The goal is to virtualize a complete WordPress setup — including Nginx, PHP-FPM, and MariaDB — by building each component inside its own Docker container, managed through Docker Compose.
+Inception is a project from the 42 curriculum aimed at introducing students to **modern container-based infrastructure using Docker**. The goal is to virtualize a complete WordPress setup — including Nginx, PHP-FPM, and MariaDB — by building each component inside its own Docker container, managed through Docker Compose.
 
-The project requires:
-
-- Building a custom **Nginx** container serving the WordPress site through HTTPS (TLS/SSL).
-- Building a **WordPress + PHP-FPM** container with automated installation using WP-CLI.
-- Building a **MariaDB** container with secure initialization and persistence.
-- Managing data persistence via **Docker Volumes**.
-- Running all services inside a dedicated **Docker network** for isolation.
-- Automating the environment with a **Makefile**.
-
-This project provides a practical foundation for understanding service-oriented architecture, container orchestration, and infrastructure-as-code principles.
-
+The project requires building:
+- A **Nginx** container serving the WordPress site through HTTPS (TLS/SSL).
+- A **WordPress + PHP-FPM** container with automated installation using WP-CLI.
+- A **MariaDB** container with secure initialization and persistence.
 
 ## Instructions
 
@@ -32,9 +24,15 @@ This project provides a practical foundation for understanding service-oriented 
 127.0.0.1   cscache.42.fr
 ```
 
-### Start the project
+### Running the project
 
-Run from the project root:
+1. Clone the repository:
+    
+    `git clone git@github.com:clothildesc/inception.git`
+    
+2. Place your password files in the `secrets/` directory and other variables in a `srcs/.env` file 
+(see USER_DOC.md). 
+3. Build and start the containers from the project root:
 
 ```bash
 make
@@ -54,7 +52,7 @@ The site becomes available at:
 - Rebuild everything : `make re`
 
 
-## Project Description & Technical Architecture
+## Project Description
 
 ### Using Docker
 
@@ -86,50 +84,12 @@ All services communicate inside a custom Docker bridge network.
 
 ### Technical Comparisons
 
-🔹 **Virtual Machines vs Docker**
-
-| Virtual Machines               | Docker                                |
-| ------------------------------ | ------------------------------------- |
-| Virtualize a full OS           | Virtualize processes only PHP-FPM     |
-| Heavy, slow to boot            | Lightweight and fast                  |
-| Large memory & disk footprint  | Minimal resource usage                |
-| Strong isolation               | Process-level isolation               |
-| Less suited to micro-services  | Ideal for micro-services              |
-
-Docker is used because it provides **portability, modularity, and efficiency**.
-
-🔹 **Secrets vs Environment Variables**
-
-| Environment Variables             | Secrets                             |
-| --------------------------------- | ----------------------------------- |
-| Easy to use                       | More secure                         |
-| Stored in clear text              | Never written to disk unencrypted   |
-| Sufficient for local development  | Required in production              |
-| Supported by Docker without Swarm | Require Docker Swarm / Kubernetes   |
-
-The project uses **environment variables** because the Inception project runs locally without an orchestrator.
-
-🔹 **Docker Network vs Host Network**
-
-| Bridge Network                           | Host Network                        |
-| ---------------------------------------- | ----------------------------------- |
-| Isolated from the host                   | Shares host network stack           |
-| Each container has its own internal IP   | No internal IP; uses host’s IPd     |
-| Services communicate by container name   | Direct access to host ports         |
-| More secure                              | Higher risk of port collisions      |
-
-A **bridge network** is required for the project for isolation and container-to-container DNS.
-
-🔹 **Docker Volumes vs Bind Mounts**
-
-| Volumes                           | Bind Mounts                            |
-| --------------------------------- | -------------------------------------- |
-| Fully managed by Docker           | Direct path to the host filesystem     |
-| Stable, portable, optimized       | Sensitive to host configuration issues |
-| Ideal for database persistence    | Ideal for development environments     |
-| Easy backup and migration         | Can break if host paths changes        |
-
-The project uses **Docker volumes** to persist MariaDB and WordPress data reliably.
+| Topic                             | Description                                                                                    |
+| --------------------------------- | ---------------------------------------------------------------------------------------------- |
+| Virtual Machines vs Docker        | VMs are heavyweight with full OS; Docker containers are lightweight and share the host OS.     |
+| Secrets vs Environment Variables  | Secrets provide secure storage; environment variables are easier but less secure.              |
+| Docker Network vs Host            | Docker networks isolate containers; host network exposes containers directly to host network.  |
+| Volumes vs Bind Mounts            | Volumes are managed by Docker and preferred for persistence; bind mounts link host folders.    |
 
 ## Resources
 
@@ -145,7 +105,6 @@ The project uses **Docker volumes** to persist MariaDB and WordPress data reliab
 ### Use of AI
 
 AI was used for:
-- Understanding Docker networking, volumes, entrypoints, and process supervision
-- Troubleshooting WordPress installation and database initialization
-- Improving explanations and documentation clarity
-- Reviewing script logic for robustness
+- Draft this README file ;)
+- Improving explanations and documentation clarity.
+- Assist in troubleshooting and optimizing Docker configurations.

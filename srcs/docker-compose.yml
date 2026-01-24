@@ -59,15 +59,15 @@ volumes:
     driver_opts:
       type: 'none'
       o: 'bind'
-      #device: '/home/cscache/data/wp'
-      device: '/Users/clothildescache/code/42/data/wp'
+      device: '/home/cscache/data/wp'
+      #device: '/Users/clothildescache/code/42/data/wp'
   db_data:
     driver: local
     driver_opts:
       type: 'none'
       o: 'bind'
-      #device: '/home/cscache/data/db'
-      device: '/Users/clothildescache/code/42/data/db'
+      device: '/home/cscache/data/db'
+      #device: '/Users/clothildescache/code/42/data/db'
 
 secrets:
   db_password:
