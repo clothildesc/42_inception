@@ -71,6 +71,13 @@ services:
     secrets:
       - ftp_password
 
+  static:
+    build: requirements/bonus/static
+    container_name: static
+    networks:
+      - inception
+    restart: unless-stopped
+
 networks:
   docker-network:
     driver: bridge
