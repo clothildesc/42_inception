@@ -28,6 +28,14 @@ sed -i "s|username_here|${MYSQL_USER}|" $WP_PATH/wp-config.php
 sed -i "s|password_here|${MYSQL_PASSWORD}|" $WP_PATH/wp-config.php
 sed -i "s|localhost|mariadb|" $WP_PATH/wp-config.php
 
+# Configuration Redis
+cat <<EOF >> $WP_PATH/wp-config.php
+
+define('WP_REDIS_HOST', 'redis');
+define('WP_REDIS_PORT', 6379);
+define('WP_CACHE', true);
+EOF
+
 # Installation WordPress
 wp core install \
     --allow-root \
@@ -44,6 +52,12 @@ wp user create "${WP_USER}" "${WP_USER_EMAIL}" \
     --allow-root \
     --role=author \
     --user_pass="${WP_USER_PASSWORD}" \
+    --path=$WP_PATH
+
+# Installation et activation de Redis Object Cache
+wp plugin install redis-cache \
+    --activate \
+    --allow-root \
     --path=$WP_PATH
 
 # Lancement PHP-FPM en foreground (Docker requirement)

@@ -48,6 +48,13 @@ services:
       interval: 10s
       timeout: 5s
       retries: 5
+  
+  redis:
+    build: requirements/bonus/redis
+    container_name: redis
+    networks:
+      - docker-network
+    restart: unless-stopped
 
 networks:
   docker-network:
