@@ -15,13 +15,13 @@ The project requires building:
 
 ### Requirements
 
-- Docker  
-- Docker Compose (plugin version)  
-- GNU Make  
+- Docker
+- Docker Compose (plugin version)
+- GNU Make
 - Add the hostname to your system’s `/etc/hosts` file:
 
 ```txt
-127.0.0.1   cscache.42.fr
+127.0.0.1   yourlogin.42.fr
 ```
 
 ### Running the project
@@ -45,7 +45,7 @@ This will:
 4. Start Nginx, WordPress (PHP-FPM), and MariaDB containers
 
 The site becomes available at:
-👉 https://cscache.42.fr
+👉 https://yourlogin.42.fr
 
 - Stop and clean containers : `make clean`
 - Full cleanup (including volumes) : `make fclean`

@@ -6,23 +6,23 @@ This document explains how to use, access, and verify the Inception Docker stack
 
 ## 1. Services provided
 
-### **Nginx (HTTPS Reverse Proxy)**
+### Nginx (HTTPS Reverse Proxy)
 - Serves the website on port 443.
 - Forwards PHP requests to WordPress (PHP-FPM).
 - Uses SSL certificates.
 
-### **WordPress (PHP-FPM)**
+### WordPress (PHP-FPM)
 - Runs the WordPress website on port 9000 (internal).
 - Automatically installs WordPress using WP-CLI.
 
-### **MariaDB**
+### MariaDB
 - Stores WordPress data (users, posts, settings).
 - Uses a persistent Docker volume to keep data.
 
 
 ## 2. Run the project
 
-### **Start and stop the project**
+### Start and stop the project
 
 Run from the project root:
 
@@ -37,25 +37,25 @@ This will:
 4. Start Nginx, WordPress (PHP-FPM), and MariaDB containers
 
 The site becomes available at:
-👉 https://cscache.42.fr
+👉 https://yourlogin.42.fr
 
 - Stop and clean containers : `make clean`
 - Full cleanup (including volumes) : `make fclean`
 - Rebuild everything : `make re`
 
-### **Accessing the website**
+### Accessing the website
 
 Add this line to your host machine `/etc/hosts` file:
 
 ```txt
-127.0.0.1   cscache.42.fr
+127.0.0.1   yourlogin.42.fr
 ```
 
 The site becomes available at:
-👉 https://cscache.42.fr
+👉 https://yourlogin.42.fr
 
 The admin panel is available at:
-👉 https://cscache.42.fr/wp-admin
+👉 https://yourlogin.42.fr/wp-admin
 
 
 ## 3. Credentials
