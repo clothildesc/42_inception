@@ -50,11 +50,24 @@ services:
       retries: 5
   
   redis:
-    build: requirements/bonus/redis
     container_name: redis
+    build: ./requirements/bonus/redis
     networks:
       - docker-network
     restart: unless-stopped
+  
+  ftp:
+    container_name: ftp
+    build: ./requirements/bonus/ftp
+    depends_on:
+      - wordpress
+    volumes:
+      - wp_data:/var/www/html
+    ports:
+      - "21:21"
+      - "30000-30010:30000-30010"
+    networks:
+      - docker-network
 
 networks:
   docker-network:
