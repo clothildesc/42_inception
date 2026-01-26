@@ -29,12 +29,10 @@ sed -i "s|password_here|${MYSQL_PASSWORD}|" $WP_PATH/wp-config.php
 sed -i "s|localhost|mariadb|" $WP_PATH/wp-config.php
 
 # Configuration Redis
-cat <<EOF >> $WP_PATH/wp-config.php
-
-define('WP_REDIS_HOST', 'redis');
-define('WP_REDIS_PORT', 6379);
-define('WP_CACHE', true);
-EOF
+sed -i "/\/\* That's all, stop editing! Happy publishing. \*\//i \
+define('WP_REDIS_HOST', 'redis');\n\
+define('WP_REDIS_PORT', 6379);\n\
+define('WP_CACHE', true);\n" $WP_PATH/wp-config.php
 
 # Installation WordPress
 wp core install \
