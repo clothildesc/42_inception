@@ -61,30 +61,29 @@ The admin panel is available at:
 ## 3. Credentials
 
 Sensitive credentials (passwords) are stored securely in the following files: `srcs/secrets/`
-- db_password.txt
-- db_root_password.txt
-- wp_admin_password.txt
-- wp_user_password.txt
+- `db_password.txt`
+- `db_root_password.txt`
+- `wp_admin_password.txt`
+- `wp_user_password.txt`
 
 The `srcs/.env` file only contains non-sensitive configuration values:
+Example:
+```env
+DOMAIN_NAME=yourlogin.42.fr
 
-##### Domain
-- DOMAIN_NAME
+MYSQL_DATABASE=wordpress_db
+MYSQL_USER=wp_user
 
-##### MariaDB
-- MYSQL_DATABASE
-- MYSQL_USER
+WP_DB_NAME=wordpress_db
+WP_DB_USER=wp_user
+WP_DB_HOST=mariadb
 
-##### WordPress
-- WP_DB_NAME
-- WP_DB_USER
-- WP_DB_HOST
-- WP_TITLE
-- WP_ADMIN_USER
-- WP_ADMIN_EMAIL
-- WP_USER
-- WP_USER_EMAIL
-
+WP_TITLE=My Inception Website
+WP_ADMIN_USER=testadmin
+WP_ADMIN_EMAIL=testadmin@42.fr
+WP_USER=testuser
+WP_USER_EMAIL=testuser@42.fr
+```
 Passwords are injected into containers using Docker secrets.
 
 ⚠️ If you modify .env or any secret file, you must run: `make re`
@@ -104,8 +103,7 @@ You should see:
 
 ### Check logs
 
-```bash
-make logs-wordpress
-make logs-mariadb
-make logs-nginx
-```
+- `make logs`:  All containers logs
+- `make logs-nginx`: Nginx logs only
+- `make logs-wordpress`: WordPress logs only
+- `make logs-mariadb`: MariaDB logs only
