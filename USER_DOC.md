@@ -19,7 +19,6 @@ This document explains how to use, access, and verify the Inception Docker stack
 - Stores WordPress data (users, posts, settings).
 - Uses a persistent Docker volume to keep data.
 
-
 ## 2. Run the project
 
 ### Start and stop the project

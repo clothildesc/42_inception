@@ -6,14 +6,13 @@
 #    By: cscache <cscache@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/12/11 11:50:29 by cscache           #+#    #+#              #
-#    Updated: 2025/12/11 11:50:39 by cscache          ###   ########.fr        #
+#    Updated: 2026/01/26 13:26:32 by cscache          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = inception
 COMPOSE = docker compose -f srcs/docker-compose.yml
 DATA_PATH = /home/cscache/data
-# DATA_PATH = /Users/clothildescache/code/42/data
 DB_PATH = $(DATA_PATH)/db
 WP_PATH = $(DATA_PATH)/wp
 
