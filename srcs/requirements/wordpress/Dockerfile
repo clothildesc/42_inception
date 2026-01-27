@@ -3,6 +3,7 @@ FROM debian:trixie
 RUN apt-get update && apt-get install -y \
     php-fpm \
     php-mysql \
+    php-redis \
     php-mbstring \
     php-xml \
     php-curl \

@@ -6,7 +6,7 @@
 #    By: cscache <cscache@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/12/11 11:50:29 by cscache           #+#    #+#              #
-#    Updated: 2026/01/26 13:26:32 by cscache          ###   ########.fr        #
+#    Updated: 2026/01/27 15:33:14 by cscache          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,6 +15,7 @@ COMPOSE = docker compose -f srcs/docker-compose.yml
 DATA_PATH = /home/cscache/data
 DB_PATH = $(DATA_PATH)/db
 WP_PATH = $(DATA_PATH)/wp
+BACKUP_PATH = $(DATA_PATH)/backup
 
 # MAIN
 
@@ -24,7 +25,7 @@ up: prepare
 	$(COMPOSE) up -d --build
 
 prepare:
-	mkdir -p $(DB_PATH) $(WP_PATH)
+	mkdir -p $(DB_PATH) $(WP_PATH) $(BACKUP_PATH)
 
 down:
 	$(COMPOSE) down
@@ -66,4 +67,17 @@ logs-wordpress:
 logs-mariadb:
 	$(COMPOSE) logs -f mariadb
 
-.PHONY: all up prepare down stop start restart clean fclean re ps logs logs-nginx logs-wordpress logs-mariadb
+logs-redis:
+	$(COMPOSE) logs -f redis
+
+logs-static:
+	$(COMPOSE) logs -f static
+
+logs-adminer:
+	$(COMPOSE) logs -f adminer
+
+logs-backup:
+	$(COMPOSE) logs -f backup
+
+.PHONY: all up prepare down stop start restart clean fclean re \
+		ps logs logs-nginx logs-wordpress logs-mariadb logs-redis logs-static logs-adminer logs-backup
