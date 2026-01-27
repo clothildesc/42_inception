@@ -72,10 +72,10 @@ services:
       - ftp_password
 
   static:
-    build: requirements/bonus/static
     container_name: static
+    build: requirements/bonus/static
     networks:
-      - inception
+      - docker-network
     restart: unless-stopped
 
 networks:
