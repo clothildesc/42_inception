@@ -6,7 +6,7 @@
 #    By: cscache <cscache@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/12/11 11:50:29 by cscache           #+#    #+#              #
-#    Updated: 2026/01/27 15:24:34 by cscache          ###   ########.fr        #
+#    Updated: 2026/01/27 15:30:18 by cscache          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,6 +15,7 @@ COMPOSE = docker compose -f srcs/docker-compose.yml
 DATA_PATH = /home/cscache/data
 DB_PATH = $(DATA_PATH)/db
 WP_PATH = $(DATA_PATH)/wp
+BACKUP_PATH = $(DATA_PATH)/backup
 
 # MAIN
 
@@ -24,7 +25,7 @@ up: prepare
 	$(COMPOSE) up -d --build
 
 prepare:
-	mkdir -p $(DB_PATH) $(WP_PATH)
+	mkdir -p $(DB_PATH) $(WP_PATH) $(BACKUP_PATH)
 
 down:
 	$(COMPOSE) down

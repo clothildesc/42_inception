@@ -27,6 +27,12 @@ volumes:
       type: 'none'
       o: 'bind'
       device: '/home/cscache/data/db'
+  backup_data:
+    driver: local
+    driver_opts:
+      type: 'none'
+      o: 'bind'
+      device: '/home/cscache/data/backup'
 
 services:
   nginx:
