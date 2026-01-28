@@ -25,7 +25,7 @@ cp $WP_PATH/wp-config-sample.php $WP_PATH/wp-config.php
 # Remplacement dynamique des valeurs DB
 sed -i "s|database_name_here|${MYSQL_DATABASE}|" $WP_PATH/wp-config.php
 sed -i "s|username_here|${MYSQL_USER}|" $WP_PATH/wp-config.php
-sed -i "s|password_here|${MYSQL_PASSWORD}|" $WP_PATH/wp-config.php
+sed -i "s|password_here|'.trim(file_get_contents(\"/run/secrets/db_password\")).'|" $WP_PATH/wp-config.php
 sed -i "s|localhost|mariadb|" $WP_PATH/wp-config.php
 
 # Configuration Redis
@@ -57,6 +57,9 @@ wp plugin install redis-cache \
     --activate \
     --allow-root \
     --path=$WP_PATH
+
+#Nettoyage variables
+unset MYSQL_PASSWORD WP_ADMIN_PASSWORD WP_USER_PASSWORD
 
 # Lancement PHP-FPM en foreground (Docker requirement)
 exec php-fpm8.4 -F
