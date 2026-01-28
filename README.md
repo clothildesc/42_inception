@@ -4,12 +4,16 @@
 
 ## Description
 
-Inception is a project from the 42 curriculum aimed at introducing students to **modern container-based infrastructure using Docker**. The goal is to virtualize a complete WordPress setup — including Nginx, PHP-FPM, and MariaDB — by building each component inside its own Docker container, managed through Docker Compose.
+Inception is a systems and DevOps project from the 42 curriculum designed to introduce **container-based infrastructure using Docker**.
 
-The project requires building:
-- A **Nginx** container serving the WordPress site through HTTPS (TLS/SSL).
-- A **WordPress + PHP-FPM** container with automated installation using WP-CLI.
-- A **MariaDB** container with secure initialization and persistence.
+The goal is to deploy a complete and secure **WordPress stack** by containerizing each service independently and orchestrating them with Docker Compose. The project focuses on isolation, reproducibility, security, and data persistence.
+
+The mandatory stack includes:
+- **Nginx** as an HTTPS reverse proxy (TLS)
+- **WordPress** running with PHP-FPM and automated setup via WP-CLI
+- **MariaDB** for persistent data storage
+
+The infrastructure can be extended with **bonus services** such as caching, database administration, file transfer, static content hosting, and backups.
 
 ## Instructions
 
@@ -18,8 +22,8 @@ The project requires building:
 - Docker
 - Docker Compose (plugin version)
 - GNU Make
-- Add the hostname to your system’s `/etc/hosts` file:
 
+Add the project domain to `/etc/hosts`:
 ```txt
 127.0.0.1   yourlogin.42.fr
 ```
@@ -27,11 +31,13 @@ The project requires building:
 ### Running the project
 
 1. Clone the repository:
-    
-    `git clone git@github.com:clothildesc/inception.git`
-    
-2. Place your password files in the `secrets/` directory and other variables in a `srcs/.env` file 
-(see USER_DOC.md). 
+```bash
+    git clone git@github.com:clothildesc/inception.git
+    cd inception
+```
+2. Add credentials and configuration:
+- Secrets in `secrets/`
+- Environment variables in `srcs/.env` (see USER_DOC.md)
 3. Build and start the containers from the project root:
 
 ```bash
@@ -40,9 +46,8 @@ make
 
 This will:
 1. Build all Docker images
-2. Create the required volumes
-3. Create the Docker network
-4. Start Nginx, WordPress (PHP-FPM), and MariaDB containers
+2. Create volumes and network
+3. Start all containers
 
 The site becomes available at:
 👉 https://yourlogin.42.fr
@@ -73,6 +78,15 @@ This ensures isolation, reproducibility, and portability.
 | WordPress (PHP-FPM)   | Runs WordPress and handles dynamic PHP execution                        |
 | MariaDB               | Stores WordPress data securely                                          |
 | Docker Volumes        | Persist data for WordPress and MariaDB                                  |
+
+### Bonus Services
+
+The infrastructure can be extended with additional services:
+- Redis (WordPress caching)
+- FTP server (file transfers)
+- Adminer (database administration)
+- Static website (static content hosting)
+- Backup service (database backups)
 
 ### Communication Flow
 
@@ -108,3 +122,8 @@ AI was used for:
 - Draft this README file ;)
 - Improving explanations and documentation clarity.
 - Assist in troubleshooting and optimizing Docker configurations.
+
+### For more details
+
+- Developer documentation: DEV_DOC.md
+- User documentation: USER_DOC.md

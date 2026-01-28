@@ -106,6 +106,7 @@ services:
       - docker-network
     secrets:
       - ftp_password
+    restart: on-failure
 
   static:
     container_name: static
@@ -121,6 +122,7 @@ services:
       - mariadb
     networks:
       - docker-network
+    restart: on-failure
   
   backup:
     container_name: backup
@@ -131,3 +133,4 @@ services:
       - mariadb
     networks:
       - docker-network
+    restart: always

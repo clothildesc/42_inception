@@ -6,7 +6,7 @@
 #    By: cscache <cscache@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/12/11 11:50:29 by cscache           #+#    #+#              #
-#    Updated: 2026/01/27 15:33:14 by cscache          ###   ########.fr        #
+#    Updated: 2026/01/28 15:08:02 by cscache          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -67,17 +67,5 @@ logs-wordpress:
 logs-mariadb:
 	$(COMPOSE) logs -f mariadb
 
-logs-redis:
-	$(COMPOSE) logs -f redis
-
-logs-static:
-	$(COMPOSE) logs -f static
-
-logs-adminer:
-	$(COMPOSE) logs -f adminer
-
-logs-backup:
-	$(COMPOSE) logs -f backup
-
 .PHONY: all up prepare down stop start restart clean fclean re \
-		ps logs logs-nginx logs-wordpress logs-mariadb logs-redis logs-static logs-adminer logs-backup
+		ps logs logs-nginx logs-wordpress logs-mariadb

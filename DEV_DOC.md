@@ -50,6 +50,7 @@ This allows local access to the WordPress site via HTTPS.
         ├── nginx/
         ├── wordpress/
         └── mariadb/
+        └── bonus/
 ```
 
 ### Environment Variables
@@ -76,12 +77,13 @@ WP_USER_EMAIL=testuser@42.fr
 
 Sensitive data is handled using Docker secrets.
 Secrets are stored as plain text files in the `secrets/` directory:
-| Secret name         | File                    | Usage                  |
-| ------------------- | ----------------------- | ---------------------- |
-| `db_root_password`  | `db_root_password.txt`  | MariaDB root password  |
-| `db_password`       | `db_password.txt`       | WordPress DB user      |
-| `wp_admin_password` | `wp_admin_password.txt` | WordPress admin user   |
-| `wp_user_password`  | `wp_user_password.txt`  | WordPress regular user |
+| Secret name         | File                    | Usage                    |
+| ------------------- | ----------------------- | ------------------------ |
+| `db_root_password`  | `db_root_password.txt`  | MariaDB root password    |
+| `db_password`       | `db_password.txt`       | WordPress DB user        |
+| `wp_admin_password` | `wp_admin_password.txt` | WordPress admin user     |
+| `wp_user_password`  | `wp_user_password.txt`  | WordPress regular user   |
+| `ftp_password`      | `ftp_password.txt`      | FTP user password (bonus)|
 
 These secrets are mounted inside containers at runtime and never committed to environment variables or images.
 
@@ -118,10 +120,19 @@ The site becomes available at:
 
 ### Services
 
-The infrastructure consists of three containers:
+The infrastructure consists of the following containers:
+
+##### Mandatory services
 - **Nginx:** HTTPS reverse proxy serving WordPress
 - **WordPress:** PHP-FPM application with automated setup via WP-CLI
 - **MariaDB:** Relational database for WordPress data
+
+##### Bonus services
+- **Redis**: In-memory cache used by WordPress
+- **FTP**: File transfer access to WordPress files
+- **Adminer**: Web-based database administration interface
+- **Static**: Container serving static HTML content
+- **Backup**: Service used to back up WordPress and database data
 
 ### Network
 All containers communicate through a custom Docker bridge network:
@@ -146,16 +157,18 @@ networks:
 ### Volumes Overview
 
 The project uses bind-mounted Docker volumes for persistence.
-| Volume    | Container path   | Host path               | Purpose         |
-| --------- | ---------------- | ----------------------- | --------------- |
-| `wp_data` | `/var/www/html`  | `/home/login/data/wp` | WordPress files |
-| `db_data` | `/var/lib/mysql` | `/home/login/data/db` | MariaDB data    |
+| Volume        | Container path   | Host path                 | Purpose                  |
+| ------------- | ---------------- | ------------------------- | ------------------------ |
+| `wp_data`     | `/var/www/html`  | `/home/login/data/wp`     | WordPress files          |
+| `db_data`     | `/var/lib/mysql` | `/home/login/data/db`     | MariaDB data             |
+| `backup_data` | `/backups`       | `/home/login/data/backup` | Database backups (bonus) |
 
 ### Host Data Directories
 Directories are created automatically by the Makefile:
 ```bash
 /home/login/data/wp
 /home/login/data/db
+/home/login/data/backup
 ```
 
 They persist even if containers are stopped or removed.

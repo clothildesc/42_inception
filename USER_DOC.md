@@ -19,6 +19,13 @@ This document explains how to use, access, and verify the Inception Docker stack
 - Stores WordPress data (users, posts, settings).
 - Uses a persistent Docker volume to keep data.
 
+### Bonus services
+- **Redis**: Improves WordPress performance by caching data.
+- **FTP**: Allows file transfers to the WordPress directory.
+- **Adminer**: Web interface to manage the MariaDB database.
+- **Static Website**: Serves static HTML content.
+- **Backup**: Periodically backs up WordPress database data.
+
 ## 2. Run the project
 
 ### Start and stop the project
@@ -64,6 +71,7 @@ Sensitive credentials (passwords) are stored securely in the following files: `s
 - `db_root_password.txt`
 - `wp_admin_password.txt`
 - `wp_user_password.txt`
+- `ftp_password.txt`
 
 The `srcs/.env` file only contains non-sensitive configuration values:
 Example:
@@ -85,7 +93,7 @@ WP_USER_EMAIL=testuser@42.fr
 ```
 Passwords are injected into containers using Docker secrets.
 
-⚠️ If you modify .env or any secret file, you must run: `make re`
+⚠️ If you modify `.env` or any secret file, you must run: `make re`
 So the new credentials apply.
 
 ## 4. Checking Service Status
@@ -100,9 +108,17 @@ You should see:
 - srcs-wordpress
 - srcs-mariadb
 
+Bonus service containers may also be listed if enabled.
+
 ### Check logs
 
 - `make logs`:  All containers logs
 - `make logs-nginx`: Nginx logs only
 - `make logs-wordpress`: WordPress logs only
 - `make logs-mariadb`: MariaDB logs only
+
+Bonus services are started automatically with the project and can be checked using:
+```bash
+docker compose ps
+docker compose logs <service_name>
+```
