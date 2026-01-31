@@ -20,7 +20,7 @@ COPY conf/vsftpd.conf /etc/vsftpd.conf
 COPY tools/ftp-setup.sh /usr/local/bin/ftp-setup.sh
 RUN chmod +x /usr/local/bin/ftp-setup.sh
 
-# Script d'entréee : configure le user, applique les permissions et lance le serveur
+# Script d'entrée : configure le user, applique les permissions et lance le serveur
 ENTRYPOINT ["ftp-setup.sh"]
 
 # Port interne

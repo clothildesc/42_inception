@@ -52,9 +52,14 @@ wp user create "${WP_USER}" "${WP_USER_EMAIL}" \
     --user_pass="${WP_USER_PASSWORD}" \
     --path=$WP_PATH
 
-# Installation et activation de Redis Object Cache
+# Installation et activation du plugin Redis
 wp plugin install redis-cache \
     --activate \
+    --allow-root \
+    --path=$WP_PATH
+
+# Activation du cache Redis
+wp redis enable \
     --allow-root \
     --path=$WP_PATH
 

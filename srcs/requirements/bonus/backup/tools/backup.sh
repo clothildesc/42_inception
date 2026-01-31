@@ -6,7 +6,7 @@ export MYSQL_PASSWORD=$(cat /run/secrets/db_password)
 # Creation de copie de la base WP horodate pour eviter ecrasement
 mysqldump \
   -h "$WP_DB_HOST" \
-  -P "${WP_DB_PORT:-3306}" \
+  -P "${WP_DB_PORT}" \
   -u "$WP_DB_USER" \
   -p"$MYSQL_PASSWORD" \
   "$WP_DB_NAME" \

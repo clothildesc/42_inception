@@ -134,3 +134,7 @@ services:
     networks:
       - docker-network
     restart: always
+    env_file:
+      - .env
+    secrets:
+      - db_password
