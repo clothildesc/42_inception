@@ -9,7 +9,7 @@ export WP_ADMIN_PASSWORD=$(cat /run/secrets/wp_admin_password)
 export WP_USER_PASSWORD=$(cat /run/secrets/wp_user_password)
 
 # Attendre que MariaDB soit pret
-until mariadb -h"$WP_DB_HOST" -u"$MYSQL_USER" -p"$MYSQL_PASSWORD" -e "SELECT 1;" "$MYSQL_DATABASE" >/dev/null 2>&1; do
+until mariadb -h"$WP_DB_HOST" -P"${WP_DB_PORT}" -u"$MYSQL_USER" -p"$MYSQL_PASSWORD" -e "SELECT 1;" "$MYSQL_DATABASE" >/dev/null 2>&1; do
     echo "Waiting for MariaDB..."
     sleep 1
 done
@@ -26,7 +26,7 @@ cp $WP_PATH/wp-config-sample.php $WP_PATH/wp-config.php
 sed -i "s|database_name_here|${MYSQL_DATABASE}|" $WP_PATH/wp-config.php
 sed -i "s|username_here|${MYSQL_USER}|" $WP_PATH/wp-config.php
 sed -i "s|password_here|'.trim(file_get_contents(\"/run/secrets/db_password\")).'|" $WP_PATH/wp-config.php
-sed -i "s|localhost|mariadb|" $WP_PATH/wp-config.php
+sed -i "s|localhost|${WP_DB_HOST}:${WP_DB_PORT}|" $WP_PATH/wp-config.php
 
 # Configuration Redis
 sed -i "/\/\* That's all, stop editing! Happy publishing. \*\//i \
