@@ -1,5 +1,5 @@
 # Image de base Debian
-FROM debian:trixie
+FROM debian:trixie-slim
 
 # Installation des dépendances necessaires
 RUN apt-get update && apt-get install -y \

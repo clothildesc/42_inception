@@ -1,5 +1,5 @@
 # Image de base Debian stable
-FROM debian:trixie
+FROM debian:trixie-slim
 
 # Installation de Nginx + OpenSSL
 RUN apt update && apt install -y nginx openssl \

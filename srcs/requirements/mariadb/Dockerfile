@@ -1,5 +1,5 @@
 # Image de base Debian stable
-FROM debian:trixie
+FROM debian:trixie-slim
 
 # Installation de MariaDB Server et de gettext-base pour envsubst
 RUN apt update && apt install -y mariadb-server gettext-base \
