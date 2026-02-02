@@ -6,7 +6,7 @@
 #    By: cscache <cscache@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/12/11 11:50:29 by cscache           #+#    #+#              #
-#    Updated: 2026/01/28 15:08:02 by cscache          ###   ########.fr        #
+#    Updated: 2026/01/31 18:43:35 by cscache          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -47,6 +47,7 @@ fclean: clean
 	docker system prune -af
 	sudo rm -rf $(DB_PATH)
 	sudo rm -rf $(WP_PATH)
+	sudo rm -rf $(BACKUP_PATH)
 
 re: fclean all
 
