@@ -1,5 +1,5 @@
 # Image de base Debian stable
-FROM debian:trixie-slim
+FROM debian:trixie
 
 # Installation du serveur web Nginx
 RUN apt-get update && apt-get install -y nginx \

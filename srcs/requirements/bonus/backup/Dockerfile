@@ -1,5 +1,5 @@
 # Image de base Debian stable
-FROM debian:trixie-slim
+FROM debian:trixie
 
 # Installation de mariadb-client et de cron
 RUN apt-get update && apt-get install -y \

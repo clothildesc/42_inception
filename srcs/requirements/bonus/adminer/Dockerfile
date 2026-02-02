@@ -1,5 +1,5 @@
 # Image de base Debian stable
-FROM debian:trixie-slim
+FROM debian:trixie
 
 # Installation de PHP-FPM, de l’extension MySQL et de wget
 RUN apt-get update && apt-get install -y \
