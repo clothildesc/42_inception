@@ -84,6 +84,7 @@ MYSQL_USER=wp_user
 WP_DB_NAME=wordpress_db
 WP_DB_USER=wp_user
 WP_DB_HOST=mariadb
+WP_DB_PORT=3306
 
 WP_TITLE=My Inception Website
 WP_ADMIN_USER=testadmin
