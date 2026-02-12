@@ -140,18 +140,22 @@ Add your configuration (replace with your actual values):
 DOMAIN_NAME=yourlogin.42.fr
 
 # MySQL/MariaDB configuration
-MYSQL_DATABASE=wordpress
-MYSQL_USER=wpuser
+MYSQL_DATABASE=wordpress_db
+MYSQL_USER=wp_user
+
+WP_DB_NAME=wordpress_db
+WP_DB_USER=wp_user
+WP_DB_HOST=mariadb
+WP_DB_PORT=3306
 
 # WordPress configuration
-WP_TITLE=My Inception Site
-WP_ADMIN_USER=admin
-WP_ADMIN_EMAIL=admin@yourlogin.42.fr
-WP_URL=https://yourlogin.42.fr
+WP_TITLE=My Inception Website
+WP_ADMIN_USER=testadmin
+WP_ADMIN_EMAIL=testadmin@42.fr
 
 # Optional: WordPress user (non-admin)
-WP_USER=user
-WP_USER_EMAIL=user@yourlogin.42.fr
+WP_USER=testuser
+WP_USER_EMAIL=testuser@42.fr
 ```
 
 Save and exit (Ctrl+O, Enter, Ctrl+X).
