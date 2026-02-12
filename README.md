@@ -225,18 +225,6 @@ docker compose -f srcs/docker-compose.yml restart nginx
 | Docker Network vs Host            | Docker networks isolate containers; host network exposes containers directly to host network.  |
 | Volumes vs Bind Mounts            | Volumes are managed by Docker and preferred for persistence; bind mounts link host folders.    |
 
-## 🎓 Learning Outcomes
-
-This project teaches:
-- ✅ **Docker fundamentals** - Images, containers, volumes, networks
-- ✅ **Docker Compose** - Multi-container orchestration
-- ✅ **Nginx configuration** - Reverse proxy, TLS/SSL
-- ✅ **Database management** - MariaDB setup and security
-- ✅ **WordPress deployment** - PHP-FPM, WP-CLI automation
-- ✅ **DevOps practices** - Infrastructure as Code, automation
-- ✅ **Network architecture** - Container communication
-- ✅ **Security hardening** - Secrets, TLS, isolation
-
 ## 🐛 Troubleshooting
 
 ### Common Issues
@@ -284,7 +272,7 @@ sudo lsof -i :443
 
 ## 👥 Author
 
-**Clothilde Scache** (cscache)
+**Clothilde** (cscache)
 - GitHub: [@clothildesc](https://github.com/clothildesc)
 
 ## 📄 License
